@@ -3,7 +3,7 @@ package HospitalManagementSystem;
 import java.sql.*;
 import java.util.Scanner;
 
-public class HospitalManagementSystem {
+ class HospitalManagementSystem {
     private static final String url = "jdbc:mysql://localhost:3306/hospital";
     private static final String username = "root";
     private static final String password = "1234";
@@ -14,7 +14,7 @@ public class HospitalManagementSystem {
         }catch (ClassNotFoundException e){
             e.printStackTrace();
         }
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         try{
             Connection connection = DriverManager.getConnection(url, username, password);
             Patient patient = new Patient(connection, scanner);
@@ -68,11 +68,11 @@ public class HospitalManagementSystem {
 
     public static void bookAppointment(Patient patient, Doctor doctor, Connection connection, Scanner scanner){
         System.out.print("Enter Patient Id: ");
-        int patientId = scanner.nextInt();
+        int patientId = sc.nextInt();
         System.out.print("Enter Doctor Id: ");
-        int doctorId = scanner.nextInt();
+        int doctorId = sc.nextInt();
         System.out.print("Enter appointment date (YYYY-MM-DD): ");
-        String appointmentDate = scanner.next();
+        String appointmentDate = sc.next();
         if(patient.getPatientById(patientId) && doctor.getDoctorById(doctorId)){
             if(checkDoctorAvailability(doctorId, appointmentDate, connection)){
                 String appointmentQuery = "INSERT INTO appointments(patient_id, doctor_id, appointment_date) VALUES(?, ?, ?)";
